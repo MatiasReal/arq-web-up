@@ -24,7 +24,6 @@ El proyecto servirá para gestionar el alquiler de canchas de fútbol (5, 7 u 11
       ID de reserva, estado ("confirmada", "cancelada").
 
 ## Clientes Potenciales
--Aplicación móvil para usuarios.
--Panel web de administración para dueños de canchas.
--Pantalla pública en el complejo deportivo con horarios en tiempo real.
+-App web para usuarios.
+-Portal web de administración para dueños de canchas.
 
