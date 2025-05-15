@@ -2,7 +2,7 @@ const user = require('../models/userModel');
 
 async function createUser(req, res) {
     try {
-        const { nombre, email, password } = req.body;
+        const { name, email, password } = req.body;
 
         // Verificar si el usuario ya existe
         const usuarioExistente = await user.findOne({ email });
@@ -11,7 +11,7 @@ async function createUser(req, res) {
         }
         // Crear el nuevo usuario
         const nuevoUsuario = await user.create({
-            nombre,
+            name,
             email,
             password
         });
