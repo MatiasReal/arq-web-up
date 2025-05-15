@@ -5,7 +5,7 @@ El proyecto servirá para gestionar el alquiler de canchas de fútbol (5, 7 u 11
 -CRUD de Usuarios
   |  Crear perfiles de usuarios para reservar.
   |  Inputs:
-      Nombre, email, teléfono.
+      Nombre, email, rol(por defecto es usuario, pero uno será administrador para que pueda administrar las canchas).
   |  Outputs:
       ID de usuario, fecha de registro.
   
