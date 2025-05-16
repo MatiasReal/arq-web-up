@@ -22,6 +22,7 @@ El proyecto servirá para gestionar el alquiler de canchas de fútbol (5, 7 u 11
       ID de usuario, ID de cancha, fecha, hora de inicio y fin.
   |  Outputs:
       ID de reserva, estado ("confirmada", "cancelada").
+      
 -Reporte de las ultimas reservas para el administrador.
 
 ## Clientes Potenciales
