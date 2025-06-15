@@ -5,5 +5,6 @@ const cancha = require('../controllers/canchaController');
 
 router.post('/', reserva.createReserva, cancha.updateDisponibilidad);
 router.delete('/:reservaId', reserva.cancelarReserva, cancha.updateDisponibilidad);
+router.get('/', reserva.getReservas);
 
 module.exports = router;

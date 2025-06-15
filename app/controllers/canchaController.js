@@ -1,14 +1,26 @@
 const express = require('express');
 const cancha = require('../models/canchaModel');
 
+
 async function createCancha(req, res) {
   try {
     const { nombre, tipoCancha, precioPorHora } = req.body;
+
+    let img = '';
+    if (tipoCancha === '5') {
+      img = 'public/cancha5.jpg';
+    } else if (tipoCancha === '7') {
+      img = 'public/cancha7.jpeg';
+    } else if (tipoCancha === '11') {
+      img = 'public/cancha11.jpg';
+    }
+
     const newCancha = await cancha.create({ 
         nombre, 
         tipoCancha, 
         precioPorHora,
-        disponibilidad: true 
+        disponibilidad: true,
+        img
     });
     console.log(newCancha);
     res.status(201).json(newCancha);

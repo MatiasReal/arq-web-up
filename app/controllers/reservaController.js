@@ -45,6 +45,32 @@ async function createReserva(req, res, next) {
     }
 }
 
+
+async function getReservas(req, res) {
+  try {
+    const { fecha, horaInicio, horaFin } = req.query;
+
+    const fechaInicio = new Date(`${fecha}T00:00:00.000Z`);
+    const fechaFin = new Date(`${fecha}T23:59:59.999Z`);
+
+    // Buscar reservas del mismo día
+    const reservas = await reserva.find({
+      fecha: { $gte: fechaInicio, $lte: fechaFin },
+      horaInicio: { $gte: horaInicio },
+      horaFin: { $lte: horaFin }
+    });
+
+    return res.status(200).json(reservas);
+  } catch (error) {
+    console.error('Error en getReservas:', error);
+    return res.status(500).json({
+      message: 'Error al obtener las reservas',
+      error: error.message || error
+    });
+  }
+}
+
+
 async function cancelarReserva(req, res, next) {
     try {
         const { reservaId } = req.params;
@@ -70,5 +96,6 @@ async function cancelarReserva(req, res, next) {
 }
     module.exports = {
         createReserva,
-        cancelarReserva
+        cancelarReserva, 
+        getReservas
     };

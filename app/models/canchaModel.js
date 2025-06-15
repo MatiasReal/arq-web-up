@@ -18,6 +18,10 @@ const canchaSchema = new mongoose.Schema({
     type: Boolean,
     default: true,
   },
+  img:{
+    type: String,
+    default: ' '
+  }
 });
 
 module.exports = mongoose.model('Cancha', canchaSchema);

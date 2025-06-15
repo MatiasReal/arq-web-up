@@ -22,6 +22,27 @@ async function createUser(req, res) {
     }
 }
 
+async function loginUser(req, res) {
+    try {
+        const {email, password } = req.query;
+        const usuario = await user.findOne({ email });
+
+        if (!usuario) {
+            return res.json({ authenticated: false });
+        }
+
+        if (usuario.password !== password) {
+            return res.json({ authenticated: false });
+        }
+
+        res.json({ authenticated: true, user: { email: usuario.email, name: usuario.name, role: usuario.role } });
+    } catch (error) {
+        res.status(500).json({ message: 'Error en login', error });
+    }
+}
+
+
 module.exports = {
     createUser,
+    loginUser
 };
