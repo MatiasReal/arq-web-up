@@ -5,8 +5,6 @@ const usuario = require('../models/userModel');
 async function createReserva(req, res, next) {
     try {
         const { fecha, horaInicio, horaFin, canchaId, usuarioId } = req.body;
-    
-        // Verificar si la cancha existe
         
         const canchaExistente = await cancha.findById(canchaId);
 
@@ -16,13 +14,11 @@ async function createReserva(req, res, next) {
         return res.status(404).json({ message: 'Cancha no encontrada' });
         }
         
-        // Verificar si el usuario existe
         const usuarioExistente = await usuario.findById(usuarioId);
         if (!usuarioExistente) {
         return res.status(404).json({ message: 'Usuario no encontrado' });
         }
     
-        // Crear la reserva
         const nuevaReserva = await reserva.create({
             canchaId,
             usuarioId,
@@ -35,7 +31,7 @@ async function createReserva(req, res, next) {
         console.log('Reserva creada:', nuevaReserva);
         req.canchaId = canchaId;
         
-        next(); // Pasa al siguiente middleware
+        next(); 
 
     } catch (error) {
         console.error('Error en createReserva:', error);
@@ -89,9 +85,9 @@ async function cancelarReserva(req, res, next) {
         }
 
         req.canchaId = reservaExistente.canchaId;
-        // Cancelar la reserva
         await reserva.deleteOne({ _id: reservaId });
-        next(); // Pasa al siguiente middleware
+
+        next();
         
         return res.status(200).json({ message: 'Reserva cancelada con éxito' });
     } catch (error) {

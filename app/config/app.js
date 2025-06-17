@@ -15,15 +15,11 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-// Ruta estática/example
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'views', 'doc.html'));
-});
-
 // Montar routers bajo /api
 app.use('/api/canchas', canchaRoute);
 app.use('/api/reservas',   reservaRoute);
 app.use('/api/users',   userRoute);
+
 // Manejador global de errores
 app.use((err, req, res, next) => {
   console.error(err.stack);

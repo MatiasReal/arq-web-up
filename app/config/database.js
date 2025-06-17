@@ -12,7 +12,7 @@ const clientOptions = {
 
 async function run() {
     try {
-        // Create a Mongoose client with a MongoClientOptions object to set the Stable API version
+        
         await mongoose.connect(uri, clientOptions);
         await mongoose.connection.db.admin().command({ ping: 1 });
         console.log("✅ Conexión exitosa a MongoDB Atlas");

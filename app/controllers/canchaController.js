@@ -40,13 +40,12 @@ async function getCancha(req, res) {
 
 async function updateDisponibilidad(req, res) {
   try {
-    const id = req.canchaId; // Tomar el id del objeto de la request (del middleware anterior)
+    const id = req.canchaId;
 
     if (!id) {
       return res.status(400).json({ message: 'Falta el ID de la cancha para actualizar disponibilidad' });
     }
 
-    // Busca la cancha por su ID
     const canchaActual = await cancha.findById(id);
 
     if (!canchaActual) {
@@ -79,8 +78,29 @@ async function updateDisponibilidad(req, res) {
   }
 }
 
+async function deleteCancha(req, res) {
+  try {
+    const id = req.params.id;
+
+    if (!id) {
+      return res.status(400).json({ message: 'Falta el ID de la cancha para eliminar' });
+    }
+
+    const canchaEliminada = await cancha.findByIdAndDelete(id);
+
+    if (!canchaEliminada) {
+      return res.status(404).json({ message: 'Cancha no encontrada para eliminar' });
+    }
+
+    res.status(200).json({ message: 'Cancha eliminada correctamente', cancha: canchaEliminada });
+  } catch (error) {
+    res.status(500).json({ message: 'Error al eliminar la cancha', error });
+  }
+}
+
 module.exports = {
   createCancha,
   getCancha,
-  updateDisponibilidad
+  updateDisponibilidad,
+  deleteCancha
 };
