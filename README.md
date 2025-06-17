@@ -28,8 +28,11 @@ El proyecto servirá para gestionar el alquiler de canchas de fútbol (5, 7 u 11
 
   ## Endpoints
   -/api/canchas
+  
   -/api/reservas
+  
   -/api/users
+  
   -/api/users/login
 
 ## Clientes Potenciales
