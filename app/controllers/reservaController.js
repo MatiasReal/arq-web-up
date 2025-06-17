@@ -31,6 +31,7 @@ async function createReserva(req, res, next) {
             horaFin,    
         });
 
+        res.status(201).json(nuevaReserva);
         console.log('Reserva creada:', nuevaReserva);
         req.canchaId = canchaId;
         
@@ -49,16 +50,23 @@ async function createReserva(req, res, next) {
 async function getReservas(req, res) {
   try {
     const { fecha, horaInicio, horaFin } = req.query;
+    let query = {};
 
-    const fechaInicio = new Date(`${fecha}T00:00:00.000Z`);
-    const fechaFin = new Date(`${fecha}T23:59:59.999Z`);
+    if (fecha) {
+      const fechaInicio = new Date(`${fecha}T00:00:00.000Z`);
+      const fechaFin = new Date(`${fecha}T23:59:59.999Z`);
+      query.fecha = { $gte: fechaInicio, $lte: fechaFin };
+    }
+    if (horaInicio) {
+      query.horaInicio = { $gte: horaInicio };
+    }
+    if (horaFin) {
+      query.horaFin = { $lte: horaFin };
+    }
 
-    // Buscar reservas del mismo día
-    const reservas = await reserva.find({
-      fecha: { $gte: fechaInicio, $lte: fechaFin },
-      horaInicio: { $gte: horaInicio },
-      horaFin: { $lte: horaFin }
-    });
+    const reservas = await reserva.find(query)
+      .populate('usuarioId')
+      .populate('canchaId');
 
     return res.status(200).json(reservas);
   } catch (error) {

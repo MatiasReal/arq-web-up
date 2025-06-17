@@ -4,12 +4,10 @@ async function createUser(req, res) {
     try {
         const { name, email, password } = req.body;
 
-        // Verificar si el usuario ya existe
         const usuarioExistente = await user.findOne({ email });
         if (usuarioExistente) {
             return res.status(400).json({ message: 'El usuario ya existe' });
         }
-        // Crear el nuevo usuario
         const nuevoUsuario = await user.create({
             name,
             email,
@@ -35,7 +33,7 @@ async function loginUser(req, res) {
             return res.json({ authenticated: false });
         }
 
-        res.json({ authenticated: true, user: { email: usuario.email, name: usuario.name, role: usuario.role } });
+        res.json({ authenticated: true, user: { _id: usuario._id, email: usuario.email, name: usuario.name, role: usuario.role } });
     } catch (error) {
         res.status(500).json({ message: 'Error en login', error });
     }

@@ -19,7 +19,7 @@ const reservaSchema = new mongoose.Schema({
   },
   usuarioId: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Usuario',
+    ref: 'User',
     required: true,
   },
 });
